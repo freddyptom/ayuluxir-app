@@ -24,8 +24,11 @@
       });
       navLinks.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () {
-          navToggle.classList.remove('active');
-          navLinks.classList.remove('open');
+          // Delay closing menu so anchor/href navigation completes on mobile
+          setTimeout(function () {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('open');
+          }, 0);
         });
       });
     }
@@ -34,7 +37,7 @@
     var promoPopup = document.getElementById('promo-popup');
     if (promoPopup) {
       var promoClose = promoPopup.querySelector('.promo-popup-close');
-      var promoSeenKey = 'ayuluxir_promo_seen';
+      var promoStorageKey = 'ayuluxir_promo_last_closed';
       function showPromo() {
         promoPopup.removeAttribute('hidden');
         requestAnimationFrame(function () {
@@ -44,9 +47,15 @@
       function hidePromo() {
         promoPopup.classList.remove('is-visible');
         promoPopup.setAttribute('hidden', '');
-        try { sessionStorage.setItem(promoSeenKey, '1'); } catch (e) {}
+        try {
+          localStorage.setItem(promoStorageKey, new Date().toDateString());
+        } catch (e) {}
       }
-      if (!sessionStorage.getItem(promoSeenKey)) {
+      // Show once per day: if never closed, or last closed on a different day
+      var today = new Date().toDateString();
+      var lastClosed = null;
+      try { lastClosed = localStorage.getItem(promoStorageKey); } catch (e) {}
+      if (lastClosed !== today) {
         setTimeout(showPromo, 600);
       }
       if (promoClose) {
