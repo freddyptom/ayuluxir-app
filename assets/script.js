@@ -30,6 +30,33 @@
       });
     }
 
+    // ----- Homepage: Promo popup (index only) -----
+    var promoPopup = document.getElementById('promo-popup');
+    if (promoPopup) {
+      var promoClose = promoPopup.querySelector('.promo-popup-close');
+      var promoSeenKey = 'ayuluxir_promo_seen';
+      function showPromo() {
+        promoPopup.removeAttribute('hidden');
+        requestAnimationFrame(function () {
+          promoPopup.classList.add('is-visible');
+        });
+      }
+      function hidePromo() {
+        promoPopup.classList.remove('is-visible');
+        promoPopup.setAttribute('hidden', '');
+        try { sessionStorage.setItem(promoSeenKey, '1'); } catch (e) {}
+      }
+      if (!sessionStorage.getItem(promoSeenKey)) {
+        setTimeout(showPromo, 600);
+      }
+      if (promoClose) {
+        promoClose.addEventListener('click', hidePromo);
+      }
+      promoPopup.addEventListener('click', function (e) {
+        if (e.target === promoPopup) { hidePromo(); }
+      });
+    }
+
     // ----- Homepage: Carousel (index only) -----
     var track = document.querySelector('.carousel-track');
     var cards = document.querySelectorAll('.card');
