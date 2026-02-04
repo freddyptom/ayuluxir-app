@@ -2768,32 +2768,35 @@ details.job-card[open] .job-toggle::after {
 }
 
 .promo-popup-badge {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.7rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  font-style: italic;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--mud-color);
   margin: 0 0 0.75rem;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .promo-popup-title {
   font-family: "Cormorant Garamond", serif;
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 600;
   color: #1f1f1f;
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.35rem;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
 .promo-popup-text {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.05rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.2rem;
+  font-weight: 500;
   color: var(--mud-color);
   margin: 0 0 1.5rem;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
 .promo-popup-cta {
