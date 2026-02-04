@@ -1,0 +1,4 @@
+# Netlify config for Ayuluxir site
+# Publish the assets folder so index.html is at the site root
+[build]
+  publish = "assets"
