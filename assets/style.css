@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap');
 
 
 /* Reset browser defaults */
@@ -426,11 +426,13 @@ html, body { overflow-x: hidden; }
 }
 
 .about-content h2 {
+  font-family: "Cormorant Garamond", serif;
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #000;
   text-align: center;
   margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
 }
 
 .about-content p {
@@ -499,11 +501,12 @@ html, body { overflow-x: hidden; }
 
 /* Section heading */
 .carousel-title {
+  font-family: "Cormorant Garamond", serif;
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #000;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-transform: none;
   margin-bottom: 3rem;
   position: relative;
   display: inline-block;
@@ -580,7 +583,9 @@ html, body { overflow-x: hidden; }
 
 
 .card-content h3 {
-  font-size: 1.2rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #333;
   margin-bottom: 0.5rem;
   background: white !important;
@@ -1040,11 +1045,13 @@ html, body { overflow-x: hidden; }
   padding: 6rem 0;
 }
 .contact-title {
+  font-family: "Cormorant Garamond", serif;
   text-align: center;
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #000;
   margin-bottom: 3rem;
+  letter-spacing: -0.02em;
 }
 
 .contact-container {
