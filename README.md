@@ -60,12 +60,6 @@ Open `assets/index.html` in a browser, or serve the repo with any static server 
 
 **Optional:** In **Site settings → Domain management**, you can change the subdomain (e.g. `ayuluxir-preview.netlify.app`) or add a custom domain later.
 
-## Chat widget
-
-A chat widget (button + panel) appears on the homepage, services, and careers pages. It calls the Netlify function `/.netlify/functions/chat`.
-
-- **Without an API key:** Visitors get a friendly fallback message suggesting WhatsApp or email.
-- **With OpenAI:** In Netlify, go to **Site settings → Environment variables** and add `OPENAI_API_KEY` with your [OpenAI API key](https://platform.openai.com/api-keys). The bot will then answer questions about Ayuluxir’s services, location, and contact using the site context.
 
 ## Form
 

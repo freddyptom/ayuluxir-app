@@ -266,51 +266,56 @@ html {
     display: none;
   }
 }
-/* === CLEAN, RIGHT-ALIGNED MOBILE MENU === */
+/* === MOBILE: FULL-SCREEN BEIGE MENU (centred, brown links) === */
 @media (max-width: 900px) {
   .nav-links {
-    position: absolute;
-    top: 100%;
-    right: 1.5rem;     /* stick to the right under the burger */
-    left: auto;        /* no full-width centering */
-    margin-top: 0.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh; /* dynamic viewport on mobile */
+    margin: 0;
+    z-index: 999;
+    box-sizing: border-box;
 
+    display: flex;
     flex-direction: column;
-    align-items: flex-end;  /* align text to the right */
-    gap: 0.35rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
 
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-radius: 0;
-    padding: 0;            /* remove inner padding from the panel */
+    background: #f5f0e6; /* beige – matches site palette */
+    padding: 2rem;
 
-    max-height: 0;
     opacity: 0;
-    overflow: hidden;
+    visibility: hidden;
     pointer-events: none;
-    transform: translateY(-4px);
-    transition:
-      max-height 0.3s ease,
-      opacity 0.25s ease,
-      transform 0.25s ease;
+    overflow: auto; /* allow scroll if needed; overrides first block’s overflow:hidden */
+    transition: opacity 0.25s ease, visibility 0.25s ease;
   }
 
   .nav-links.open {
-    max-height: 260px;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
+    max-height: none; /* override first block’s 260px so overlay is full height */
   }
 
   .nav-links a {
-    color: #fff !important;
-    padding: 0.4rem 0;     /* simple text spacing */
+    color: #5c4a3a !important; /* brown */
+    font-weight: 500;
+    font-size: 1.15rem;
+    padding: 0.5rem 0.75rem;
     background: transparent !important;
-    text-align: right;
+    text-align: center;
   }
 
-  /* remove those vertical dividers on mobile */
+  /* remove vertical dividers on mobile */
   .nav-links a:not(:last-child)::before {
     display: none !important;
   }
@@ -2930,211 +2935,5 @@ details.job-card[open] .job-toggle::after {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(122, 90, 59, 0.35);
   color: var(--btn-text) !important;
-}
-
-/* ===== Chat widget ===== */
-.chat-widget {
-  position: fixed;
-  bottom: 1.25rem;
-  left: 1.25rem;
-  z-index: 9998;
-  font-family: "Poppins", sans-serif;
-}
-
-.chat-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--btn-bg);
-  color: var(--btn-text) !important;
-  border: none;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(122, 90, 59, 0.35);
-  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.chat-toggle:hover {
-  background: var(--btn-bg-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(122, 90, 59, 0.4);
-  color: var(--btn-text) !important;
-}
-
-.chat-toggle svg {
-  flex-shrink: 0;
-}
-
-.chat-toggle-label {
-  letter-spacing: 0.03em;
-}
-
-.chat-panel {
-  position: absolute;
-  bottom: calc(100% + 0.75rem);
-  left: 0;
-  width: 340px;
-  max-width: calc(100vw - 2rem);
-  height: 420px;
-  background: linear-gradient(165deg, #f8f4ee 0%, #ede6dc 100%);
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(139, 109, 92, 0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
-}
-
-.chat-panel.is-open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Panel is shown via .is-open; avoid [hidden] breaking layout/transition */
-.chat-panel[hidden] {
-  display: flex !important;
-  pointer-events: none;
-}
-
-.chat-panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.25rem;
-  background: var(--btn-bg);
-  color: var(--btn-text) !important;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-}
-
-.chat-close {
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0.25rem;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
-}
-
-.chat-close:hover {
-  opacity: 1;
-}
-
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.chat-msg {
-  max-width: 88%;
-  padding: 0.65rem 1rem;
-  border-radius: 14px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.chat-msg-bot {
-  align-self: flex-start;
-  background: #fff;
-  color: var(--text-charcoal);
-  border: 1px solid rgba(139, 109, 92, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.chat-msg-user {
-  align-self: flex-end;
-  background: var(--btn-bg);
-  color: var(--btn-text) !important;
-}
-
-.chat-msg p {
-  margin: 0;
-  color: inherit;
-}
-
-.chat-msg-user p {
-  color: var(--btn-text) !important;
-}
-
-.chat-form {
-  display: flex;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-top: 1px solid rgba(139, 109, 92, 0.12);
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.chat-input {
-  flex: 1;
-  padding: 0.65rem 1rem;
-  border: 1px solid rgba(139, 109, 92, 0.2);
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-family: inherit;
-  color: var(--text-charcoal);
-  background: #fff;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.chat-input::placeholder {
-  color: #999;
-}
-
-.chat-input:focus {
-  border-color: var(--mud-color);
-}
-
-.chat-send {
-  padding: 0.65rem 1.1rem;
-  background: var(--btn-bg);
-  color: var(--btn-text) !important;
-  border: none;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.chat-send:hover {
-  background: var(--btn-bg-hover);
-  color: var(--btn-text) !important;
-  transform: translateY(-1px);
-}
-
-.chat-send:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-@media (max-width: 480px) {
-  .chat-widget {
-    left: 0.75rem;
-    bottom: 0.75rem;
-  }
-  .chat-panel {
-    width: 320px;
-    height: 380px;
-  }
-  .chat-toggle-label {
-    display: none;
-  }
 }
 
