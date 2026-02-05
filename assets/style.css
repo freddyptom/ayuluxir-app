@@ -10,6 +10,12 @@
   --btn-bg: #7a5a3b;           /* lighter chocolate brown */
   --btn-bg-hover: #8b6d4c;     /* slightly lighter for hover */
   --btn-text: #f5efe6;         /* soft beige text */
+  /* Luxury accents (borders, underlines, dividers – no background change) */
+  --accent-gold: #b8a99a;
+  --accent-gold-soft: rgba(184, 169, 154, 0.35);
+  --text-charcoal: #2c2c2c;
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 24px 56px rgba(0, 0, 0, 0.08);
 }
 
 *{
@@ -44,6 +50,9 @@ button:not(.expand-btn):not(.arrow),
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(122, 90, 59, 0.2);
+  border: 1px solid rgba(139, 109, 92, 0.15);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 button:not(.expand-btn):not(.arrow):hover,
@@ -54,6 +63,9 @@ button:not(.expand-btn):not(.arrow):hover,
 .job-toggle:hover {
   background: var(--btn-bg-hover);
   color: var(--btn-text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(122, 90, 59, 0.28);
+  border-color: rgba(139, 109, 92, 0.25);
 }
 
 /* Apply mud color to all general text elements */
@@ -111,18 +123,17 @@ html {
 .nav-links a {
   position: relative;
   text-decoration: none;
-  color: #333;
+  color: var(--text-charcoal);
   font-weight: 500;
   font-size: 1.05rem;
   padding: 0.4rem 0.2rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color 0.28s ease, transform 0.28s ease;
 }
 
-/* hover effect */
+/* hover effect – muted gold accent */
 .nav-links a:hover {
-  color: #a27cfb;
+  color: var(--mud-color);
   transform: translateY(-2px);
-  text-shadow: 0 0 8px rgba(162, 124, 251, 0.3);
 }
 
 /* underline animation */
@@ -132,9 +143,9 @@ html {
   left: 0;
   bottom: -4px;
   width: 0;
-  height: 2px;
-  background: linear-gradient(to right, #a27cfb, #d8c8ff);
-  transition: width 0.3s ease;
+  height: 1.5px;
+  background: linear-gradient(to right, var(--accent-gold), var(--mud-color));
+  transition: width 0.35s ease;
 }
 
 .nav-links a:hover::after {
@@ -385,7 +396,7 @@ html, body { overflow-x: hidden; }
 /* Fresh layout */
 .about-section {
   width: 100%;
-  padding: 6rem 0;
+  padding: 7rem 0;
   background: beige;
   display: flex !important;
   justify-content: flex-start !important;
@@ -413,7 +424,8 @@ html, body { overflow-x: hidden; }
   aspect-ratio: 1 / 1.25;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(139, 109, 92, 0.08);
 }
 
 .about-content {
@@ -429,17 +441,18 @@ html, body { overflow-x: hidden; }
   font-family: "Cormorant Garamond", serif;
   font-size: 2.2rem;
   font-weight: 600;
-  color: #000;
+  color: var(--text-charcoal);
   text-align: center;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
 .about-content p {
   font-size: 1.05rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: #555;
   margin-bottom: 1.5rem;
+  max-width: 58ch;
 }
 
 /* Responsive stack */
@@ -486,7 +499,7 @@ html, body { overflow-x: hidden; }
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5rem 0;
+  padding: 6.5rem 0;
   text-align: center;
   position: relative;
 }
@@ -495,7 +508,7 @@ html, body { overflow-x: hidden; }
 .section-separator {
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, #d8c8ff, transparent);
+  background: linear-gradient(to right, transparent, var(--accent-gold-soft), transparent);
   margin-bottom: 3rem;
 }
 
@@ -504,8 +517,8 @@ html, body { overflow-x: hidden; }
   font-family: "Cormorant Garamond", serif;
   font-size: 2.2rem;
   font-weight: 600;
-  color: #000;
-  letter-spacing: 0.02em;
+  color: var(--text-charcoal);
+  letter-spacing: 0.04em;
   text-transform: none;
   margin-bottom: 3rem;
   position: relative;
@@ -546,7 +559,8 @@ html, body { overflow-x: hidden; }
   flex: 0 0 calc(33.33% - 1.4rem);
   background: #fff !important;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(139, 109, 92, 0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -554,12 +568,13 @@ html, body { overflow-x: hidden; }
      there is minimal white space on initial load and
      it expands only when the description is opened. */
   height: auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--accent-gold-soft);
 }
 
 /* Card image */
@@ -586,9 +601,10 @@ html, body { overflow-x: hidden; }
   font-family: "Cormorant Garamond", serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-charcoal);
   margin-bottom: 0.5rem;
   background: white !important;
+  letter-spacing: 0.02em;
 }
 
 /* Expand/collapse arrow button */
@@ -596,9 +612,9 @@ html, body { overflow-x: hidden; }
   background: none !important;
   border: none;
   font-size: 1.5rem;
-  color: #a27cfb !important;
+  color: var(--btn-bg) !important;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, color 0.2s ease;
   text-transform: none !important;
   letter-spacing: normal !important;
   font-weight: normal !important;
@@ -606,6 +622,7 @@ html, body { overflow-x: hidden; }
 
 .expand-btn:hover {
   transform: scale(1.2);
+  color: var(--btn-bg-hover) !important;
 }
 
 
@@ -617,7 +634,7 @@ html, body { overflow-x: hidden; }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: var(--btn-bg) !important;
   border: none;
   font-size: 2rem;
   cursor: pointer;
@@ -628,8 +645,8 @@ html, body { overflow-x: hidden; }
   text-align: center;
   transition: all 0.3s ease;
   z-index: 99;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: inherit !important;
+  box-shadow: 0 4px 12px rgba(122, 90, 59, 0.3);
+  color: var(--btn-text) !important;
   text-transform: none !important;
   letter-spacing: normal !important;
   font-weight: normal !important;
@@ -639,9 +656,10 @@ html, body { overflow-x: hidden; }
 .arrow.right { right: 10px; }
 
 .arrow:hover {
-  background: #a27cfb !important;
-  color: #fff !important;
+  background: var(--btn-bg-hover) !important;
+  color: var(--btn-text) !important;
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 16px rgba(122, 90, 59, 0.4);
 }
 
 .card-content h3,
@@ -1042,16 +1060,16 @@ html, body { overflow-x: hidden; }
 .contact-section {
   width: 100%;
   background: beige;
-  padding: 6rem 0;
+  padding: 7rem 0;
 }
 .contact-title {
   font-family: "Cormorant Garamond", serif;
   text-align: center;
   font-size: 2.5rem;
   font-weight: 600;
-  color: #000;
+  color: var(--text-charcoal);
   margin-bottom: 3rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.03em;
 }
 
 .contact-container {
@@ -1073,9 +1091,11 @@ html, body { overflow-x: hidden; }
 
 .contact-info h2 {
   font-size: 2.2rem;
-  font-weight: 700;
-  color: #000;
+  font-weight: 600;
+  color: var(--text-charcoal);
   margin-bottom: 0.5rem;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.02em;
 }
 
 .contact-info p {
@@ -1139,11 +1159,16 @@ html, body { overflow-x: hidden; }
   background: #fff;
   padding: 3rem 2.5rem;
   border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--accent-gold-soft);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.contact-form:focus-within {
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(184, 169, 154, 0.5);
 }
 
 /* Floating Label Input Group */
@@ -1246,7 +1271,7 @@ html, body { overflow-x: hidden; }
 /* ===== Footer ===== */
 .site-footer {
   background: beige;
-  border-top: 1px solid rgba(0,0,0,0.08); /* subtle separator */
+  border-top: 1px solid var(--accent-gold-soft);
   padding-top: 3rem;
 }
 
@@ -1313,7 +1338,9 @@ html, body { overflow-x: hidden; }
   font-size: 1.25rem;
   margin-bottom: 1.2rem;
   font-weight: 600;
-  color: #000;
+  color: var(--text-charcoal);
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.03em;
 }
 
 .footer-center ul {
@@ -1629,10 +1656,10 @@ body.page-careers {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2.4rem, 5.5vw, 3.25rem);
   font-weight: 600;
-  color: #1f1f1f;
+  color: var(--text-charcoal);
   margin: 0 0 0.9rem;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.03em;
 }
 
 .careers-hero-line {
@@ -2167,9 +2194,9 @@ details.job-card[open] .job-toggle::after {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2.75rem, 5vw, 4rem);
   font-weight: 500;
-  color: #2c2420;
+  color: var(--text-charcoal);
   margin: 0 0 1.25rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   line-height: 1.15;
 }
 
@@ -2177,7 +2204,7 @@ details.job-card[open] .job-toggle::after {
   width: 60px;
   height: 2px;
   margin: 0 auto 1.5rem;
-  background: linear-gradient(90deg, transparent, #b8a99a, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
 }
 
 .services-hero-subtitle {
@@ -2229,9 +2256,9 @@ details.job-card[open] .job-toggle::after {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1.85rem, 3.5vw, 2.35rem);
   font-weight: 500;
-  color: #2c2420;
+  color: var(--text-charcoal);
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
 .services-section h2 {
@@ -2281,6 +2308,7 @@ details.job-card[open] .job-toggle::after {
 .page-services .services-grid {
   max-width: 1140px;
   gap: 2.25rem;
+  align-items: start; /* each card keeps its own height; only the expanded one grows */
 }
 
 .service-card {
@@ -2296,24 +2324,20 @@ details.job-card[open] .job-toggle::after {
 .page-services .service-card {
   background: #fff;
   border-radius: 16px;
-  border: 1px solid rgba(44, 36, 32, 0.06);
-  box-shadow:
-    0 2px 8px rgba(44, 36, 32, 0.04),
-    0 12px 40px rgba(44, 36, 32, 0.06);
+  border: 1px solid var(--accent-gold-soft);
+  box-shadow: var(--shadow-soft);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .page-services .service-card:hover {
   transform: translateY(-4px);
-  box-shadow:
-    0 4px 16px rgba(44, 36, 32, 0.08),
-    0 20px 50px rgba(44, 36, 32, 0.1);
-  border-color: rgba(184, 169, 154, 0.25);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(184, 169, 154, 0.45);
 }
 
 /* Service image wrapper */
@@ -2397,8 +2421,8 @@ details.job-card[open] .job-toggle::after {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.5rem;
   font-weight: 500;
-  color: #2c2420;
-  letter-spacing: 0.02em;
+  color: var(--text-charcoal);
+  letter-spacing: 0.03em;
   margin-bottom: 0.6rem;
 }
 
@@ -2431,6 +2455,80 @@ details.job-card[open] .job-toggle::after {
   font-size: 0.95rem;
   line-height: 1.65;
   color: #5c524a;
+  /* Collapsed: show 3 lines with "Learn more" to expand */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  transition: none;
+}
+
+/* Expanded: class on the paragraph only so exactly one description opens */
+.page-services .service-desc.service-desc-open,
+.page-services .service-short.service-desc-open {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  display: block;
+}
+
+/* Downward arrow expander (injected by script on services page) */
+.service-desc-expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto 0.9rem;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--mud-color);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.3s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.service-desc-expand:hover {
+  color: var(--text-charcoal);
+  background: rgba(139, 109, 92, 0.08);
+}
+
+.service-desc-expand svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+/* Arrow points up when the description right above it is open */
+.service-desc.service-desc-open + .service-desc-expand svg,
+.service-short.service-desc-open + .service-desc-expand svg {
+  transform: rotate(180deg);
+}
+
+/* Row: pricing left, duration right (services page) – always one line */
+.service-price-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  min-width: 0;
+}
+
+.service-price-row .price-display {
+  order: 1;
+  margin-bottom: 0;
+  min-width: 0;
+  flex-shrink: 1;
+  gap: 0.4rem;
+}
+
+.service-price-row .service-meta {
+  order: 2;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Service meta (duration) */
@@ -2449,11 +2547,12 @@ details.job-card[open] .job-toggle::after {
 }
 
 .page-services .service-meta .duration {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: #7a6b5a;
   background: #f5f5f5;
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 6px;
+  white-space: nowrap;
   letter-spacing: 0.02em;
 }
 
@@ -2470,11 +2569,15 @@ details.job-card[open] .job-toggle::after {
 
 .page-services .price-display {
   margin-bottom: 1.25rem;
-  padding: 0.9rem 1rem;
+  padding: 0.5rem 0.6rem;
   background: transparent;
   border-top: 1px solid rgba(44, 36, 32, 0.08);
   border-bottom: 1px solid rgba(44, 36, 32, 0.08);
   border-radius: 0;
+}
+
+.service-price-row .price-display {
+  padding: 0.4rem 0.5rem;
 }
 
 .original-price {
@@ -2491,6 +2594,10 @@ details.job-card[open] .job-toggle::after {
   font-weight: 400;
 }
 
+.service-price-row .original-price {
+  font-size: 0.8rem;
+}
+
 .current-price {
   font-size: 1.8rem;
   font-weight: 700;
@@ -2504,6 +2611,10 @@ details.job-card[open] .job-toggle::after {
   font-weight: 500;
   color: #2c2420;
   letter-spacing: 0.02em;
+}
+
+.service-price-row .current-price {
+  font-size: 1.35rem;
 }
 
 /* Old price styles (for backward compatibility) */
@@ -2819,5 +2930,211 @@ details.job-card[open] .job-toggle::after {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(122, 90, 59, 0.35);
   color: var(--btn-text) !important;
+}
+
+/* ===== Chat widget ===== */
+.chat-widget {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 9998;
+  font-family: "Poppins", sans-serif;
+}
+
+.chat-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(122, 90, 59, 0.35);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chat-toggle:hover {
+  background: var(--btn-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(122, 90, 59, 0.4);
+  color: var(--btn-text) !important;
+}
+
+.chat-toggle svg {
+  flex-shrink: 0;
+}
+
+.chat-toggle-label {
+  letter-spacing: 0.03em;
+}
+
+.chat-panel {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  left: 0;
+  width: 340px;
+  max-width: calc(100vw - 2rem);
+  height: 420px;
+  background: linear-gradient(165deg, #f8f4ee 0%, #ede6dc 100%);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(139, 109, 92, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+.chat-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Panel is shown via .is-open; avoid [hidden] breaking layout/transition */
+.chat-panel[hidden] {
+  display: flex !important;
+  pointer-events: none;
+}
+
+.chat-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.chat-close:hover {
+  opacity: 1;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chat-msg {
+  max-width: 88%;
+  padding: 0.65rem 1rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.chat-msg-bot {
+  align-self: flex-start;
+  background: #fff;
+  color: var(--text-charcoal);
+  border: 1px solid rgba(139, 109, 92, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.chat-msg-user {
+  align-self: flex-end;
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+}
+
+.chat-msg p {
+  margin: 0;
+  color: inherit;
+}
+
+.chat-msg-user p {
+  color: var(--btn-text) !important;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid rgba(139, 109, 92, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(139, 109, 92, 0.2);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-charcoal);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input::placeholder {
+  color: #999;
+}
+
+.chat-input:focus {
+  border-color: var(--mud-color);
+}
+
+.chat-send {
+  padding: 0.65rem 1.1rem;
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chat-send:hover {
+  background: var(--btn-bg-hover);
+  color: var(--btn-text) !important;
+  transform: translateY(-1px);
+}
+
+.chat-send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 480px) {
+  .chat-widget {
+    left: 0.75rem;
+    bottom: 0.75rem;
+  }
+  .chat-panel {
+    width: 320px;
+    height: 380px;
+  }
+  .chat-toggle-label {
+    display: none;
+  }
 }
 

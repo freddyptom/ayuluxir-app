@@ -168,6 +168,117 @@
       });
     }
 
+    // ----- Services page: arrow expander for descriptions -----
+    var servicesMain = document.querySelector('.page-services');
+    if (servicesMain) {
+      var serviceCards = servicesMain.querySelectorAll('.service-card');
+      serviceCards.forEach(function (card) {
+        var desc = card.querySelector('.service-desc') || card.querySelector('.service-short');
+        if (!desc) return;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'service-desc-expand';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Expand description');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+        desc.parentNode.insertBefore(btn, desc.nextSibling);
+      });
+      // Single delegated click: expand/collapse the one description (paragraph) only
+      servicesMain.addEventListener('click', function (e) {
+        var btn = e.target.closest('.service-desc-expand');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var desc = btn.previousElementSibling;
+        if (!desc || (!desc.classList.contains('service-desc') && !desc.classList.contains('service-short'))) return;
+        var wasOpen = desc.classList.contains('service-desc-open');
+        var allDescs = servicesMain.querySelectorAll('.service-desc, .service-short');
+        for (var i = 0; i < allDescs.length; i++) {
+          allDescs[i].classList.remove('service-desc-open');
+        }
+        var allBtns = servicesMain.querySelectorAll('.service-desc-expand');
+        for (var j = 0; j < allBtns.length; j++) {
+          allBtns[j].setAttribute('aria-expanded', 'false');
+          allBtns[j].setAttribute('aria-label', 'Expand description');
+        }
+        if (!wasOpen) {
+          desc.classList.add('service-desc-open');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.setAttribute('aria-label', 'Collapse description');
+        }
+      });
+    }
+
+    // ----- Chat widget (all pages that have it) -----
+    var chatWidget = document.getElementById('chat-widget');
+    if (chatWidget) {
+      var chatToggle = chatWidget.querySelector('.chat-toggle');
+      var chatPanel = chatWidget.querySelector('.chat-panel');
+      var chatClose = chatWidget.querySelector('.chat-close');
+      var chatForm = chatWidget.querySelector('.chat-form');
+      var chatInput = chatWidget.querySelector('.chat-input');
+      var chatMessages = chatWidget.querySelector('.chat-messages');
+      var chatSend = chatWidget.querySelector('.chat-send');
+
+      function openChat() {
+        chatPanel.classList.add('is-open');
+        chatPanel.removeAttribute('hidden');
+        chatPanel.setAttribute('aria-hidden', 'false');
+        chatInput.focus();
+      }
+      function closeChat() {
+        chatPanel.classList.remove('is-open');
+        chatPanel.setAttribute('hidden', '');
+        chatPanel.setAttribute('aria-hidden', 'true');
+      }
+
+      if (chatToggle) chatToggle.addEventListener('click', openChat);
+      if (chatClose) chatClose.addEventListener('click', closeChat);
+
+      if (chatForm && chatInput && chatMessages && chatSend) {
+        chatForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var text = chatInput.value.trim();
+          if (!text) return;
+          chatInput.value = '';
+          var userDiv = document.createElement('div');
+          userDiv.className = 'chat-msg chat-msg-user';
+          userDiv.innerHTML = '<p>' + escapeHtml(text) + '</p>';
+          chatMessages.appendChild(userDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          chatSend.disabled = true;
+          var botDiv = document.createElement('div');
+          botDiv.className = 'chat-msg chat-msg-bot';
+          botDiv.innerHTML = '<p>Thinking…</p>';
+          chatMessages.appendChild(botDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          fetch('/.netlify/functions/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+          })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+              botDiv.querySelector('p').textContent = data.reply || 'Sorry, something went wrong. You can reach us on WhatsApp or by phone.';
+              chatSend.disabled = false;
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            })
+            .catch(function () {
+              botDiv.querySelector('p').textContent = 'Unable to connect. Please WhatsApp us or call +44 7345 409977.';
+              chatSend.disabled = false;
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        });
+      }
+      function escapeHtml(s) {
+        var div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+    }
+
     // ----- Footer year (any page with #year) -----
     var yearEl = document.getElementById('year');
     if (yearEl) {
