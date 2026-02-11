@@ -1075,11 +1075,13 @@ html, body { overflow-x: hidden; }
   }
 }
 
+/* ===== Contact section ===== */
 .contact-section {
   width: 100%;
   background: beige;
   padding: 7rem 0;
 }
+
 .contact-title {
   font-family: "Cormorant Garamond", serif;
   text-align: center;
@@ -1092,7 +1094,7 @@ html, body { overflow-x: hidden; }
 
 .contact-container {
   display: flex;
-  align-items: center; /* <-- this vertically aligns both sides */
+  align-items: center;
   justify-content: space-between;
   max-width: 1200px;
   width: 90%;
@@ -1100,20 +1102,10 @@ html, body { overflow-x: hidden; }
   gap: 4rem;
 }
 
-/* LEFT SIDE */
 .contact-info {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centers content vertically */
-}
-
-.contact-info h2 {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: var(--text-charcoal);
-  margin-bottom: 0.5rem;
-  font-family: "Cormorant Garamond", serif;
-  letter-spacing: 0.02em;
+  justify-content: center;
 }
 
 .contact-info p {
@@ -1122,7 +1114,6 @@ html, body { overflow-x: hidden; }
   margin-bottom: 2rem;
 }
 
-/* Buttons */
 .contact-buttons {
   display: flex;
   flex-direction: column;
@@ -1140,6 +1131,7 @@ html, body { overflow-x: hidden; }
   font-size: 1.1rem;
   width: fit-content;
   transition: 0.3s ease;
+  border: none;
 }
 
 .contact-btn img {
@@ -1147,31 +1139,26 @@ html, body { overflow-x: hidden; }
   height: 28px;
 }
 
-/* WhatsApp Style */
 .contact-btn.whatsapp {
   background: #25D366;
   color: #fff !important;
-  text-transform: none;
-  letter-spacing: normal;
 }
+
 .contact-btn.whatsapp:hover {
   background: #1ea957;
   color: #fff !important;
 }
 
-/* Phone Style */
 .contact-btn.phone {
   background: #444;
   color: #fff !important;
-  text-transform: none;
-  letter-spacing: normal;
 }
+
 .contact-btn.phone:hover {
   background: #000;
   color: #fff !important;
 }
 
-/* CONTACT FORM (Right Side) */
 .contact-form {
   flex: 1.4;
   background: #fff;
@@ -1184,13 +1171,13 @@ html, body { overflow-x: hidden; }
   border: 1px solid var(--accent-gold-soft);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
 .contact-form:focus-within {
   box-shadow: var(--shadow-card-hover);
   border-color: rgba(184, 169, 154, 0.5);
 }
 
-/* Floating Label Input Group */
-.form-group {
+.contact-form .form-group {
   position: relative;
   width: 100%;
 }
@@ -1200,7 +1187,7 @@ html, body { overflow-x: hidden; }
   width: 100%;
   padding: 1.2rem 1rem;
   border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.18);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   background: #fff;
   font-size: 1rem;
   outline: none;
@@ -1209,12 +1196,11 @@ html, body { overflow-x: hidden; }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #a27cfb;
-  box-shadow: 0 0 8px rgba(162,124,251,0.25);
+  border-color: var(--mud-color);
+  box-shadow: 0 0 8px rgba(139, 109, 92, 0.25);
 }
 
-/* Floating Label */
-.form-group label {
+.contact-form .form-group label {
   position: absolute;
   left: 1rem;
   top: 50%;
@@ -1225,7 +1211,11 @@ html, body { overflow-x: hidden; }
   transition: 0.3s ease;
 }
 
-/* Raise label when input has text or focus */
+.contact-form .form-group:has(textarea) label {
+  top: 1.25rem;
+  transform: none;
+}
+
 .contact-form input:focus + label,
 .contact-form textarea:focus + label,
 .contact-form input:not(:placeholder-shown) + label,
@@ -1235,22 +1225,30 @@ html, body { overflow-x: hidden; }
   font-size: 0.75rem;
   background: #fff;
   padding: 0 0.4rem;
-  color: #a27cfb;
+  color: var(--mud-color);
 }
 
-/* Submit Button */
-.contact-form button {
+.contact-form button[type="submit"] {
   padding: 1.1rem;
   font-size: 1.1rem;
   border: none;
   border-radius: 35px;
   cursor: pointer;
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(122, 90, 59, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contact-form button:hover {
+.contact-form button[type="submit"]:hover {
+  background: var(--btn-bg-hover);
+  color: var(--btn-text) !important;
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(162,124,251,0.4);
+  box-shadow: 0 8px 20px rgba(122, 90, 59, 0.35);
 }
 
 #form-status {
@@ -1261,26 +1259,18 @@ html, body { overflow-x: hidden; }
   color: #4a4a4a;
 }
 
-
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .contact-container {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
+
   .contact-buttons {
     align-items: center;
   }
-}
 
-@media (max-width: 900px) {
-  .contact-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .contact-info, 
+  .contact-info,
   .contact-form {
     width: 100%;
   }
@@ -2950,3 +2940,259 @@ details.job-card[open] .job-toggle::after {
   color: var(--btn-text) !important;
 }
 
+/* ===== BOOKING PAGE ===== */
+body.page-booking {
+  min-height: 100vh;
+  background-color: #ebe5dc;
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 252, 246, 0.95) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 80% 60%, rgba(245, 240, 232, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(240, 235, 226, 0.85) 0%, transparent 50%),
+    linear-gradient(180deg, #f5f0e8 0%, #ebe5dc 35%, #e6dfd4 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-position: center top, right center, left bottom, 0 0;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+}
+
+.booking-main {
+  min-height: 100vh;
+  padding-bottom: 5rem;
+}
+
+.booking-hero {
+  padding: clamp(7rem, 14vw, 9rem) 2rem clamp(3rem, 6vw, 4rem);
+  background: transparent;
+  text-align: center;
+}
+
+.booking-hero-inner {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.booking-hero-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mud-color);
+  margin-bottom: 0.85rem;
+  opacity: 0.95;
+}
+
+.booking-hero-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 5vw, 3.25rem);
+  font-weight: 500;
+  color: var(--text-charcoal);
+  margin: 0 0 1rem;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.booking-hero-line {
+  width: 56px;
+  height: 2px;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  opacity: 0.8;
+}
+
+.booking-hero-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--mud-color);
+  margin: 0;
+}
+
+.booking-section {
+  padding: 0 1.5rem 4rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.booking-wrap {
+  background: #fff;
+  border-radius: 20px;
+  padding: clamp(2.25rem, 4vw, 3.25rem) clamp(2rem, 4vw, 3rem);
+  box-shadow: 0 20px 50px rgba(44, 36, 32, 0.08), 0 0 0 1px rgba(139, 109, 92, 0.06);
+  border: 1px solid rgba(139, 109, 92, 0.08);
+}
+
+/* Form groups: label above input, no overlap */
+.booking-form .form-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.booking-form .form-row {
+  margin-bottom: 1.6rem;
+}
+
+.booking-form .form-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.booking-form .form-row-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.booking-form label {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-charcoal);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+  position: static;
+  transform: none;
+  pointer-events: auto;
+}
+
+.booking-form .required {
+  color: var(--mud-color);
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(139, 109, 92, 0.2);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-charcoal);
+  background: #fcfbf9;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-sizing: border-box;
+  display: block;
+}
+
+.booking-form input::placeholder,
+.booking-form textarea::placeholder {
+  color: #a39e95;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  outline: none;
+  border-color: var(--mud-color);
+  box-shadow: 0 0 0 3px rgba(139, 109, 92, 0.12);
+  background: #fff;
+}
+
+.booking-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B6D5C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.booking-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.booking-form .form-actions {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.booking-submit {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.booking-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(122, 90, 59, 0.3);
+}
+
+.booking-status {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-top: 0.75rem;
+  min-height: 1.5em;
+  color: var(--mud-color);
+}
+
+.booking-status a {
+  color: var(--btn-bg);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.booking-status a:hover {
+  color: var(--btn-bg-hover);
+}
+
+.slot-hint {
+  font-size: 0.9rem;
+  color: var(--mud-color);
+  margin: 0 0 0.75rem;
+}
+
+.slot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.slot-btn {
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: var(--mud-color);
+  background: #f5f0e8;
+  border: 1px solid rgba(139, 109, 92, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.slot-btn:hover {
+  background: #ede8e0;
+  border-color: var(--mud-color);
+}
+
+.slot-btn.selected {
+  background: var(--btn-bg);
+  color: var(--btn-text) !important;
+  border-color: var(--btn-bg);
+}
+
+@media (max-width: 600px) {
+  .booking-form .form-row-half {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .booking-wrap {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  .booking-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}

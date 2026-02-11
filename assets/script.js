@@ -168,6 +168,110 @@
       });
     }
 
+    // ----- Booking page: slot selection and form submit -----
+    var bookingForm = document.getElementById('booking-form');
+    var bookingStatus = document.getElementById('booking-status');
+    var bookingDate = document.getElementById('booking-date');
+    var bookingTimeInput = document.getElementById('booking-time');
+    var slotGrid = document.getElementById('slot-grid');
+    var slotHint = document.getElementById('slot-hint');
+
+    if (bookingForm && bookingDate && slotGrid) {
+      function loadSlots(dateStr) {
+        if (!dateStr) {
+          slotHint.textContent = 'Select a date above to see available slots.';
+          slotGrid.innerHTML = '';
+          if (bookingTimeInput) bookingTimeInput.value = '';
+          return;
+        }
+        slotHint.textContent = 'Loading slots…';
+        slotGrid.innerHTML = '';
+        if (bookingTimeInput) bookingTimeInput.value = '';
+        fetch('/.netlify/functions/get-available-slots?date=' + encodeURIComponent(dateStr))
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            var slots = data.slots || [];
+            if (slots.length === 0) {
+              slotHint.textContent = 'No slots available on this date. Try another day.';
+              return;
+            }
+            slotHint.textContent = 'Select one slot:';
+            slots.forEach(function (t) {
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'slot-btn';
+              btn.textContent = t;
+              btn.dataset.slot = t;
+              btn.addEventListener('click', function () {
+                slotGrid.querySelectorAll('.slot-btn').forEach(function (b) { b.classList.remove('selected'); });
+                btn.classList.add('selected');
+                if (bookingTimeInput) bookingTimeInput.value = t;
+              });
+              slotGrid.appendChild(btn);
+            });
+          })
+          .catch(function () {
+            slotHint.textContent = 'Could not load slots. Please try again or contact us.';
+          });
+      }
+
+      if (bookingDate) {
+        var today = new Date().toISOString().slice(0, 10);
+        bookingDate.setAttribute('min', today);
+        bookingDate.addEventListener('change', function () {
+          loadSlots(bookingDate.value);
+        });
+      }
+
+      bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var dateVal = bookingDate ? bookingDate.value : '';
+        var timeVal = bookingTimeInput ? bookingTimeInput.value : '';
+        var nameVal = (document.getElementById('booking-name') || {}).value || '';
+        var emailVal = (document.getElementById('booking-email') || {}).value || '';
+        var phoneVal = (document.getElementById('booking-phone') || {}).value || '';
+        var serviceVal = (document.getElementById('booking-service') || {}).value || '';
+        var serviceSelect = document.getElementById('booking-service');
+        var serviceName = serviceSelect && serviceSelect.options[serviceSelect.selectedIndex] ? serviceSelect.options[serviceSelect.selectedIndex].text : '';
+        var notesVal = (document.getElementById('booking-notes') || {}).value || '';
+
+        if (!timeVal) {
+          if (bookingStatus) bookingStatus.textContent = 'Please select a time slot.';
+          return;
+        }
+
+        fetch('/.netlify/functions/create-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            service: serviceVal,
+            date: dateVal,
+            time_slot: timeVal,
+            name: nameVal,
+            email: emailVal,
+            phone: phoneVal,
+            notes: notesVal
+          })
+        })
+          .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; }); })
+          .then(function (result) {
+            if (result.ok) {
+              bookingStatus.textContent = result.data.message || 'Thank you! We\'ll confirm your appointment shortly.';
+              bookingForm.reset();
+              if (slotGrid) slotGrid.innerHTML = '';
+              if (slotHint) slotHint.textContent = 'Select a date above to see available slots.';
+              if (bookingTimeInput) bookingTimeInput.value = '';
+            } else {
+              bookingStatus.textContent = result.data.error || 'Something went wrong. Please try again or contact us.';
+            }
+          })
+          .catch(function () {
+            var msg = 'Hi, I would like to book: ' + (serviceName || 'a treatment') + (dateVal ? ' on ' + dateVal : '') + (timeVal ? ' at ' + timeVal : '') + '. My name is ' + (nameVal || '') + '.';
+            bookingStatus.innerHTML = 'Booking service unavailable. You can <a href="https://wa.me/447345409977?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener noreferrer">send your booking via WhatsApp</a> instead.';
+          });
+      });
+    }
+
     // ----- Services page: arrow expander for descriptions -----
     var servicesMain = document.querySelector('.page-services');
     if (servicesMain) {
